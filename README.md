@@ -1,99 +1,117 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# 🏘️ Neighborhood Bulletin Board – Backend API
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This is the **backend service** for the [Neighborhood Bulletin Board](https://github.com/tomwebwalker/neighborhood-bulletin-board) project, built with **NestJS**. It provides the RESTful API for managing posts, users, authentication, and more.
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📦 Tech Stack
 
-## Project setup
+| Layer       | Tech             |
+|-------------|------------------|
+| Framework   | NestJS (Node.js) |
+| Database    | MongoDB or PostgreSQL (via TypeORM or Prisma) |
+| Auth        | JWT (Passport.js) |
+| Validation  | class-validator  |
+| File Upload | Multer (optional: Cloudinary or S3) |
 
-```bash
-$ npm install
+---
+
+## 📂 Folder Structure
+
+```
+src/
+├── auth/             # JWT auth logic
+├── posts/            # CRUD operations for posts
+├── users/            # User management
+├── common/           # Guards, decorators, interceptors
+├── config/           # Environment config
+├── main.ts           # Entry point
 ```
 
-## Compile and run the project
+---
+
+## 🔧 Setup Instructions
+
+### 1. Prerequisites
+- Node.js v18+
+- Nest CLI (`npm i -g @nestjs/cli`)
+- MongoDB or PostgreSQL instance
+
+### 2. Installation
 
 ```bash
-# development
-$ npm run start
+# Clone the repo
+git clone https://github.com/<your-org>/neighborhood-bulletin-board-backend.git
+cd neighborhood-bulletin-board-backend
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# Install dependencies
+npm install
 ```
 
-## Run tests
+### 3. Environment Configuration
+
+Create a `.env` file in the root:
+
+```env
+PORT=3000
+DATABASE_URL=mongodb://localhost:27017/bulletin
+JWT_SECRET=your-secret-key
+```
+
+### 4. Run the App
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Development mode
+npm run start:dev
 ```
 
-## Deployment
+API will be available at: `http://localhost:3000`
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 📬 API Endpoints (Example)
+
+| Method | Endpoint           | Description          |
+|--------|--------------------|----------------------|
+| POST   | /auth/register     | Register new user    |
+| POST   | /auth/login        | Login + JWT token    |
+| GET    | /posts             | Get all posts        |
+| POST   | /posts             | Create a post        |
+| PUT    | /posts/:id         | Edit a post          |
+| DELETE | /posts/:id         | Delete a post        |
+
+Full Swagger docs coming soon!
+
+---
+
+## 🧪 Testing
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+# Run unit tests
+npm run test
+
+# Run e2e tests
+npm run test:e2e
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## 🛠️ Contribution
 
-Check out a few resources that may come in handy when working with NestJS:
+This is part of the full-stack [Neighborhood Bulletin Board](https://github.com/<your-org>/neighborhood-bulletin-board) project.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+- Open issues or PRs are welcome!
+- Follow our [contribution guidelines](../CONTRIBUTING.md)
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 📑 License
 
-## Stay in touch
+MIT © tomwebwalker.pl
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+## 🔗 Related Repos
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- [Frontend (Angular)](https://github.com/tomwebwalker/neighborhood-bulletin-board)
