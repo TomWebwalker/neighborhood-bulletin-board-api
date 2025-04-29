@@ -1,0 +1,27 @@
+name: 🛠️ Dev Task
+description: Backend or frontend coding task
+title: "[Task] <short description>"
+labels: [task]
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Task Summary
+      description: What's the purpose of this task?
+      placeholder: "Implement post creation form on frontend..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Task Details
+      description: Add implementation notes, files to update, or any guidance.
+      placeholder: "Use Angular Reactive Forms. Connect with /api/posts endpoint..."
+
+  - type: input
+    id: difficulty
+    attributes:
+      label: Difficulty
+      description: Optional estimate of task complexity.
+      placeholder: "Easy / Medium / Hard"
