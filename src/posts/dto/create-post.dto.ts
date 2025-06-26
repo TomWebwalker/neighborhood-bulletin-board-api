@@ -10,7 +10,7 @@ export class CreatePostDto {
   content: string;
 
   @IsNotEmpty()
-  category?: PostCategory;
+  category: PostCategory;
 
   authorId: number;
   imageUrl: string;
