@@ -12,18 +12,25 @@ export class PostsService {
   }
 
   findAll() {
-    return `This action returns all posts`;
+    return this.prisma.post.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} post`;
+    return this.prisma.post.findUnique({
+      where: { id },
+    });
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+    return this.prisma.post.update({
+      where: { id },
+      data: updatePostDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} post`;
+    return this.prisma.post.delete({
+      where: { id },
+    });
   }
 }
