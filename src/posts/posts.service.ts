@@ -7,28 +7,28 @@ import { PrismaService } from '../prisma.service';
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreatePostDto) {
+  create(data: CreatePostDto): Promise<Post> {
     return this.prisma.post.create({ data });
   }
 
-  findAll() {
+  findAll(): Promise<Post[]> {
     return this.prisma.post.findMany();
   }
 
-  findOne(id: number) {
+  findOne(id: number): Promise<Post | null> {
     return this.prisma.post.findUnique({
       where: { id },
     });
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
+  update(id: number, updatePostDto: UpdatePostDto): Promise<Post> {
     return this.prisma.post.update({
       where: { id },
       data: updatePostDto,
     });
   }
 
-  remove(id: number) {
+  remove(id: number): Promise<Post> {
     return this.prisma.post.delete({
       where: { id },
     });
