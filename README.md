@@ -1,5 +1,6 @@
-
 # 🏘️ Neighborhood Bulletin Board – Backend API
+
+[![CI](https://github.com/tomwebwalker/neighborhood-bulletin-board-api/actions/workflows/ci.yml/badge.svg)](https://github.com/tomwebwalker/neighborhood-bulletin-board-api/actions/workflows/ci.yml)
 
 This is the **backend service** for the [Neighborhood Bulletin Board](https://github.com/tomwebwalker/neighborhood-bulletin-board) project, built with **NestJS**. It provides the RESTful API for managing posts, users, authentication, and more.
 
@@ -10,10 +11,44 @@ This is the **backend service** for the [Neighborhood Bulletin Board](https://gi
 | Layer       | Tech             |
 |-------------|------------------|
 | Framework   | NestJS (Node.js) |
-| Database    | MongoDB or PostgreSQL (via TypeORM or Prisma) |
+| Database    | SQLite (Prisma)  |
 | Auth        | JWT (Passport.js) |
 | Validation  | class-validator  |
-| File Upload | Multer (optional: Cloudinary or S3) |
+| Testing     | Jest             |
+| Linting     | ESLint + Prettier |
+
+---
+
+## 🚀 CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+### Automated Checks on Every PR:
+- ✅ **Linting**: ESLint checks for code quality
+- ✅ **Formatting**: Prettier ensures consistent code style
+- ✅ **Type Checking**: TypeScript compilation validation
+- ✅ **Unit Tests**: Jest test suite with coverage
+- ✅ **E2E Tests**: End-to-end integration tests
+- ✅ **Build**: Application compilation verification
+- ✅ **Security**: Dependency vulnerability scanning
+
+### Workflows:
+- **CI Pipeline** (`.github/workflows/ci.yml`): Runs on PRs and pushes to main/develop
+- **Dependency Review** (`.github/workflows/dependency-review.yml`): Security checks for dependencies
+- **Dependabot** (`.github/dependabot.yml`): Automated dependency updates
+
+### Local Development:
+```bash
+# Run all CI checks locally
+npm run ci
+
+# Individual checks
+npm run lint:check      # ESLint validation
+npm run format:check    # Prettier validation
+npm run type-check      # TypeScript validation
+npm run test:cov        # Tests with coverage
+npm run build           # Build verification
+```
 
 ---
 
@@ -21,12 +56,12 @@ This is the **backend service** for the [Neighborhood Bulletin Board](https://gi
 
 ```
 src/
-├── auth/             # JWT auth logic
 ├── posts/            # CRUD operations for posts
 ├── users/            # User management
-├── common/           # Guards, decorators, interceptors
-├── config/           # Environment config
+├── dto/              # Data Transfer Objects
 ├── main.ts           # Entry point
+├── app.module.ts     # Root module
+└── prisma.service.ts # Database service
 ```
 
 ---
@@ -36,14 +71,13 @@ src/
 ### 1. Prerequisites
 - Node.js v18+
 - Nest CLI (`npm i -g @nestjs/cli`)
-- MongoDB or PostgreSQL instance
 
 ### 2. Installation
 
 ```bash
 # Clone the repo
-git clone https://github.com/<your-org>/neighborhood-bulletin-board-backend.git
-cd neighborhood-bulletin-board-backend
+git clone https://github.com/<your-org>/neighborhood-bulletin-board-api.git
+cd neighborhood-bulletin-board-api
 
 # Install dependencies
 npm install
@@ -54,12 +88,20 @@ npm install
 Create a `.env` file in the root:
 
 ```env
-PORT=3000
-DATABASE_URL=mongodb://localhost:27017/bulletin
-JWT_SECRET=your-secret-key
+DATABASE_URL="file:./dev.db"
 ```
 
-### 4. Run the App
+### 4. Database Setup
+
+```bash
+# Generate Prisma client
+npm run db:generate
+
+# Push schema to database
+npm run db:push
+```
+
+### 5. Run the App
 
 ```bash
 # Development mode
@@ -70,18 +112,18 @@ API will be available at: `http://localhost:3000`
 
 ---
 
-## 📬 API Endpoints (Example)
+## 📬 API Endpoints
 
 | Method | Endpoint           | Description          |
 |--------|--------------------|----------------------|
-| POST   | /auth/register     | Register new user    |
-| POST   | /auth/login        | Login + JWT token    |
 | GET    | /posts             | Get all posts        |
 | POST   | /posts             | Create a post        |
 | PUT    | /posts/:id         | Edit a post          |
 | DELETE | /posts/:id         | Delete a post        |
-
-Full Swagger docs coming soon!
+| GET    | /users             | Get all users        |
+| POST   | /users             | Create a user        |
+| PUT    | /users/:id         | Edit a user          |
+| DELETE | /users/:id         | Delete a user        |
 
 ---
 
@@ -91,18 +133,36 @@ Full Swagger docs coming soon!
 # Run unit tests
 npm run test
 
+# Run tests with coverage
+npm run test:cov
+
 # Run e2e tests
 npm run test:e2e
+
+# Run tests in watch mode
+npm run test:watch
 ```
 
 ---
 
-## 🛠️ Contribution
+## 🛠️ Development Workflow
 
-This is part of the full-stack [Neighborhood Bulletin Board](https://github.com/<your-org>/neighborhood-bulletin-board) project.
+1. **Create a feature branch** from `main` or `develop`
+2. **Make your changes** following the coding standards
+3. **Run local checks** before committing:
+   ```bash
+   npm run ci
+   ```
+4. **Commit your changes** with conventional commit messages
+5. **Push and create a PR** - GitHub Actions will automatically run all checks
+6. **Address any CI failures** before merging
+7. **Merge when all checks pass** ✅
 
-- Open issues or PRs are welcome!
-- Follow our [contribution guidelines](../CONTRIBUTING.md)
+### Code Quality Standards:
+- Follow TypeScript best practices
+- Write unit tests for new features
+- Ensure all linting and formatting checks pass
+- Maintain test coverage above 80%
 
 ---
 
