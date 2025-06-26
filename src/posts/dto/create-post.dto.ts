@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 type PostCategory = 'ANNOUNCEMENT' | 'EVENT' | 'LOST_FOUND' | 'HELP';
 
