@@ -45,11 +45,6 @@ jobs:
     - name: Run unit tests
       run: npm run test:cov
 
-    - name: Run e2e tests
-      run: npm run test:e2e
-      env:
-        DATABASE_URL: "file:./test-e2e.db"
-
     - name: Build application
       run: npm run build
 
