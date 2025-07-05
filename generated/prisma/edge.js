@@ -86,6 +86,9 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -116,9 +119,21 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  email: 'email',
+  password: 'password'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.PostOrderByRelevanceFieldEnum = {
+  title: 'title',
+  content: 'content',
+  imageUrl: 'imageUrl',
+  location: 'location'
 };
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
@@ -174,8 +189,8 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
-  "postinstall": true,
+  "activeProvider": "mysql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -184,8 +199,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  password  String\n  role      Role     @default(USER)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  Post      Post[]\n}\n\nmodel Post {\n  id        Int          @id @default(autoincrement())\n  title     String\n  content   String?\n  category  PostCategory @default(ANNOUNCEMENT)\n  author    User?        @relation(fields: [authorId], references: [id])\n  authorId  Int?\n  imageUrl  String\n  location  String\n  createdAt DateTime     @default(now())\n  updatedAt DateTime     @updatedAt\n  expiresAt DateTime\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n\nenum PostCategory {\n  ANNOUNCEMENT\n  EVENT\n  LOST_FOUND\n  HELP\n}\n",
-  "inlineSchemaHash": "ea4e11339bea60f7714e40efd930066ae13b74564db99ff3eb37e39598916883",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  password  String\n  role      Role     @default(USER)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  Post      Post[]\n}\n\nmodel Post {\n  id        Int          @id @default(autoincrement())\n  title     String\n  content   String?\n  category  PostCategory @default(ANNOUNCEMENT)\n  author    User?        @relation(fields: [authorId], references: [id])\n  authorId  Int?\n  imageUrl  String\n  location  String\n  createdAt DateTime     @default(now())\n  updatedAt DateTime     @updatedAt\n  expiresAt DateTime\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n\nenum PostCategory {\n  ANNOUNCEMENT\n  EVENT\n  LOST_FOUND\n  HELP\n}\n",
+  "inlineSchemaHash": "fd95aa4e902ae46b4b2fab81be658924eaa2f488baff22b34deaf1094e6328f4",
   "copyEngine": true
 }
 config.dirname = '/'
