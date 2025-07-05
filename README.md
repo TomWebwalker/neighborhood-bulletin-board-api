@@ -16,6 +16,7 @@ This is the **backend service** for the [Neighborhood Bulletin Board](https://gi
 | Validation  | class-validator  |
 | Testing     | Jest             |
 | Linting     | ESLint + Prettier |
+| Documentation| Swagger/OpenAPI  |
 
 ---
 
@@ -124,6 +125,56 @@ API will be available at: `http://localhost:3000`
 | POST   | /users             | Create a user        |
 | PUT    | /users/:id         | Edit a user          |
 | DELETE | /users/:id         | Delete a user        |
+
+---
+
+## 📚 API Documentation (Swagger)
+
+The API is fully documented using **Swagger/OpenAPI 3.0**. You can access the interactive documentation in several ways:
+
+### 🌐 Swagger UI
+Visit the interactive API documentation at: **http://localhost:3000/api**
+
+Features:
+- ✅ **Interactive Testing**: Try out API endpoints directly from the browser
+- ✅ **Request/Response Examples**: See example data for all endpoints
+- ✅ **Authentication**: JWT Bearer token support for protected endpoints
+- ✅ **Schema Validation**: Automatic validation of request/response schemas
+- ✅ **Download OpenAPI Spec**: Export the API specification as JSON/YAML
+
+### 📄 OpenAPI Specification
+- **JSON Format**: http://localhost:3000/api-json
+- **YAML Format**: http://localhost:3000/api-yaml
+
+### 🔐 Authentication
+Protected endpoints require a JWT Bearer token. To authenticate:
+
+1. **Register** or **Login** using the `/auth/register` or `/auth/login` endpoints
+2. **Copy the `accessToken`** from the response
+3. **Click the "Authorize" button** in Swagger UI
+4. **Enter**: `Bearer YOUR_TOKEN_HERE`
+5. **Now you can access protected endpoints**
+
+### 📋 Available Endpoints
+
+#### Authentication (`/auth`)
+- `POST /auth/register` - Register a new user
+- `POST /auth/login` - Login user
+- `GET /auth/profile` - Get current user profile (protected)
+
+#### Posts (`/posts`)
+- `GET /posts` - Get all posts
+- `POST /posts` - Create a new post (protected)
+- `GET /posts/{id}` - Get a specific post
+- `PATCH /posts/{id}` - Update a post (protected)
+- `DELETE /posts/{id}` - Delete a post (protected)
+
+#### Users (`/users`)
+- `GET /users` - Get all users
+- `POST /users` - Create a new user
+- `GET /users/{id}` - Get a specific user
+- `PATCH /users/{id}` - Update a user
+- `DELETE /users/{id}` - Delete a user
 
 ---
 
